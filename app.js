@@ -20,14 +20,15 @@ const server = http.createServer((req, res) =>{
     })
     req.on('end', () =>{
       const parsedBody = Buffer.concat(body).toString()
-      console.log(parsedBody)
       const message = parsedBody.split('=')[1];
-      fs.writeFileSync('text.txt', message);
+      fs.writeFile('text.txt', message, err=>{
+        res.statusCode =302;
+        res.setHeader('Location', '/');
+        return res.end()
+      });
     })
 
-    res.statusCode = 302;
-    res.setHeader('Location', '/');
-    return res.end()
+ 
 }
 
  
@@ -35,4 +36,4 @@ const server = http.createServer((req, res) =>{
 
 );
 
-server.listen(3005)
+server.listen(3006)
