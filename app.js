@@ -13,7 +13,18 @@ const server = http.createServer((req, res) =>{
     return res.end()
   }
   if( url ==='/message' && method ==='POST'){
-    fs.writeFileSync('hola.txt', ' Hic et nunc');
+    const body = []
+    req.on('data', (chunk) =>{
+      console.log(chunk)
+      body.push(chunk)
+    })
+    req.on('end', () =>{
+      const parsedBody = Buffer.concat(body).toString()
+      console.log(parsedBody)
+      const message = parsedBody.split('=')[1];
+      fs.writeFileSync('text.txt', message);
+    })
+
     res.statusCode = 302;
     res.setHeader('Location', '/');
     return res.end()
@@ -24,4 +35,4 @@ const server = http.createServer((req, res) =>{
 
 );
 
-server.listen(3002)
+server.listen(3005)
