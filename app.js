@@ -2,8 +2,10 @@ const path = require('path');
 const express = require('express');
 const bodyParser = require('body-parser');
 const app = express();
+const expressHandleBars = require('express-handlebars');
+app.engine('handlebars', expressHandleBars());
 
-app.set('view engine', 'pug');
+app.set('view engine', 'handlebars');
 app.set('views', 'views');
 const adminData = require('./routes/admin');
 const shopRoutes = require('./routes/shop');
@@ -16,4 +18,4 @@ app.use((req, res, next) => {
 
 });
 
-app.listen(4006);
+app.listen(4008);
