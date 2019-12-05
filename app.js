@@ -2,17 +2,8 @@ const path = require("path");
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
-const expressHandleBars = require("express-handlebars");
-app.engine(
-    "handlebars",
-    expressHandleBars({
-        layoutsDir: "views/layouts/",
-        defaultLayout: "main-layout",
-        extname: "handlebars"
-    })
-);
 
-app.set("view engine", "handlebars");
+app.set("view engine", "ejs");
 app.set("views", "views");
 const adminData = require("./routes/admin");
 const shopRoutes = require("./routes/shop");
@@ -28,4 +19,4 @@ app.use((req, res, next) => {
     });
 });
 
-app.listen(4009);
+app.listen(4010);
